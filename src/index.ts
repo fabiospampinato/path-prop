@@ -35,7 +35,8 @@ function set ( object, path: string, value ) {
 
   if ( typeof path !== 'string' || typeof object !== 'object' || object === null ) return object;
 
-  const keys = path.split ( DIVIDER );
+  const keys = path.split ( DIVIDER ),
+        source = object;
 
   for ( let i = 0, l = keys.length; i < l; i++ ) {
 
@@ -63,7 +64,7 @@ function set ( object, path: string, value ) {
 
   }
 
-  return object;
+  return source;
 
 }
 

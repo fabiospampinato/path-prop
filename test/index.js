@@ -124,9 +124,9 @@ describe ( 'path-prop', () => {
 
       const source = Fixtures.source;
 
-      pp.set ( source, 'foo', 'set' );
-      pp.set ( source, 'bar', undefined );
-      pp.set ( source, 'undefined', 'set2' );
+      t.is ( pp.set ( source, 'foo', 'set' ), source );
+      t.is ( pp.set ( source, 'bar', undefined ), source );
+      t.is ( pp.set ( source, 'undefined', 'set2' ), source );
 
       t.is ( pp.get ( source, 'foo' ), 'set' );
       t.is ( pp.get ( source, 'bar', 123 ), 123 );
@@ -138,10 +138,10 @@ describe ( 'path-prop', () => {
 
       const source = Fixtures.source;
 
-      pp.set ( source, 'deep.foo', 'set' );
-      pp.set ( source, 'deep.bar', undefined );
-      pp.set ( source, 'deep.undefined', 'set2' );
-      pp.set ( source, 'deep.deep.deep.deep', 123 );
+      t.is ( pp.set ( source, 'deep.foo', 'set' ), source );
+      t.is ( pp.set ( source, 'deep.bar', undefined ), source );
+      t.is ( pp.set ( source, 'deep.undefined', 'set2' ), source );
+      t.is ( pp.set ( source, 'deep.deep.deep.deep', 123 ), source );
 
       t.is ( pp.get ( source, 'deep.foo' ), 'set' );
       t.is ( pp.get ( source, 'deep.bar', 123 ), 123 );
