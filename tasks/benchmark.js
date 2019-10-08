@@ -77,3 +77,5 @@ benchmark ({
     pp.unflat ( Fixtures.flattened );
   }
 });
+
+benchmark.summary ();
