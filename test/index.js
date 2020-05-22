@@ -19,12 +19,15 @@ describe ( 'path-prop', () => {
       t.is ( pp.get ( Fixtures.source, 'null' ), null );
       t.is ( pp.get ( Fixtures.source, 'null.deep' ), undefined );
       t.is ( pp.get ( Fixtures.source, 'undefined' ), undefined );
+      t.is ( pp.get ( Fixtures.source, 'arr.length' ), 3 );
       t.is ( pp.get ( Fixtures.source, 'test' ), undefined );
 
     });
 
     it ( 'supports paths', t => {
 
+      t.is ( pp.get ( Fixtures.source, 'arr.0' ), 1 );
+      t.is ( pp.get ( Fixtures.source, 'arr.2.deep.deep' ), true );
       t.is ( pp.get ( Fixtures.source, 'deep.foo' ), 'deep.foo' );
       t.is ( pp.get ( Fixtures.source, 'deep.zero' ), 0 );
       t.is ( pp.get ( Fixtures.source, 'deep.false' ), false );
@@ -55,7 +58,6 @@ describe ( 'path-prop', () => {
       t.is ( pp.get ( false, 'bar' ), undefined );
       t.is ( pp.get ( 0, 'deep.foo' ), undefined );
       t.is ( pp.get ( undefined, 'bar', 123 ), 123 );
-      t.is ( pp.get ( [], 'deep.bar' ), undefined );
 
     });
 
@@ -75,6 +77,7 @@ describe ( 'path-prop', () => {
 
     it ( 'supports regular keys', t => {
 
+      t.true ( pp.has ( Fixtures.source, 'arr' ) );
       t.true ( pp.has ( Fixtures.source, 'foo' ) );
       t.true ( pp.has ( Fixtures.source, 'zero' ) );
       t.true ( pp.has ( Fixtures.source, 'false' ) );
@@ -86,6 +89,8 @@ describe ( 'path-prop', () => {
 
     it ( 'supports paths', t => {
 
+      t.true ( pp.has ( Fixtures.source, 'arr.length' ) );
+      t.true ( pp.has ( Fixtures.source, 'arr.2.deep.deep' ) );
       t.true ( pp.has ( Fixtures.source, 'deep.foo' ) );
       t.true ( pp.has ( Fixtures.source, 'deep.zero' ) );
       t.true ( pp.has ( Fixtures.source, 'deep.false' ) );
@@ -102,7 +107,6 @@ describe ( 'path-prop', () => {
       t.false ( pp.has ( false, 'bar' ) );
       t.false ( pp.has ( 0, 'deep.foo' ) );
       t.false ( pp.has ( undefined, 'bar' ) );
-      t.false ( pp.has ( [], 'deep.bar' ) );
 
     });
 
@@ -124,10 +128,12 @@ describe ( 'path-prop', () => {
 
       const source = Fixtures.source;
 
+      t.is ( pp.set ( source, 'arr', [1, 2, 3] ), source );
       t.is ( pp.set ( source, 'foo', 'set' ), source );
       t.is ( pp.set ( source, 'bar', undefined ), source );
       t.is ( pp.set ( source, 'undefined', 'set2' ), source );
 
+      t.deepEqual ( pp.get ( source, 'arr' ), [1, 2, 3] );
       t.is ( pp.get ( source, 'foo' ), 'set' );
       t.is ( pp.get ( source, 'bar', 123 ), 123 );
       t.is ( pp.get ( source, 'undefined' ), 'set2' );
@@ -138,11 +144,15 @@ describe ( 'path-prop', () => {
 
       const source = Fixtures.source;
 
+      t.is ( pp.set ( source, 'arr.0', 0 ), source );
+      t.is ( pp.set ( source, 'arr.2.deep.foo', true ), source );
       t.is ( pp.set ( source, 'deep.foo', 'set' ), source );
       t.is ( pp.set ( source, 'deep.bar', undefined ), source );
       t.is ( pp.set ( source, 'deep.undefined', 'set2' ), source );
       t.is ( pp.set ( source, 'deep.deep.deep.deep', 123 ), source );
 
+      t.is ( pp.get ( source, 'arr.0' ), 0 );
+      t.is ( pp.get ( source, 'arr.2.deep.foo' ), true );
       t.is ( pp.get ( source, 'deep.foo' ), 'set' );
       t.is ( pp.get ( source, 'deep.bar', 123 ), 123 );
       t.is ( pp.get ( source, 'deep.undefined' ), 'set2' );
@@ -179,11 +189,13 @@ describe ( 'path-prop', () => {
 
       const source = Fixtures.source;
 
+      pp.delete ( source, 'arr' );
       pp.delete ( source, 'foo' );
       pp.delete ( source, 'bar' );
       pp.delete ( source, 'undefined' );
 
       t.false ( source.hasOwnProperty ( 'foo' ) );
+      t.is ( pp.get ( source, 'arr' ), undefined );
       t.is ( pp.get ( source, 'foo' ), undefined );
       t.is ( pp.get ( source, 'bar', 123 ), 123 );
       t.is ( pp.get ( source, 'undefined' ), undefined );
@@ -195,10 +207,14 @@ describe ( 'path-prop', () => {
 
       const source = Fixtures.source;
 
+      pp.delete ( source, 'arr.0' );
+      pp.delete ( source, 'arr.deep.deep' );
       pp.delete ( source, 'deep.foo' );
       pp.delete ( source, 'deep.bar' );
       pp.delete ( source, 'deep.undefined' );
 
+      t.is ( pp.get ( source, 'arr.0' ), undefined );
+      t.is ( pp.get ( source, 'arr.deep.deep' ), undefined );
       t.is ( pp.get ( source, 'deep.foo' ), undefined );
       t.is ( pp.get ( source, 'deep.bar', 123 ), 123 );
       t.is ( pp.get ( source, 'deep.undefined' ), undefined );
@@ -238,8 +254,8 @@ describe ( 'path-prop', () => {
 
     it ( 'works', t => {
 
-      const flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ), // Removed undefined values
-            unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ); // Removed undefined values
+      const flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ), // Removing undefined values
+            unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ); // Removing undefined values
 
       t.deepEqual ( pp.flat ( Fixtures.unflattened ), flattened );
       t.deepEqual ( pp.unflat ( pp.flat ( Fixtures.unflattened ) ), unflattened );
@@ -252,8 +268,8 @@ describe ( 'path-prop', () => {
 
     it ( 'works', t => {
 
-      const unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ), // Removed undefined values
-            flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ); // Removed undefined values
+      const unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ), // Removing undefined values
+            flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ); // Removing undefined values
 
       t.deepEqual ( pp.unflat ( Fixtures.flattened ), unflattened );
       t.deepEqual ( pp.flat ( pp.unflat ( Fixtures.flattened ) ), flattened );

@@ -11,6 +11,15 @@ const Fixtures = {
       false: false,
       null: null,
       undefined: undefined,
+      arr: [
+        1,
+        2,
+        {
+          deep: {
+            deep: true
+          }
+        }
+      ],
       deep: {
         foo: 'deep.foo',
         bar: 'deep.bar',
@@ -32,6 +41,13 @@ const Fixtures = {
       'foo': 'foo',
       'bar': 123,
       'undefined': undefined,
+      'arr': [
+        1,
+        2,
+        {
+          'deep.deep': true
+        }
+      ],
       'deep.foo': 'foo',
       'deep.bar': 123,
       'deep.undefined': undefined,
@@ -43,6 +59,15 @@ const Fixtures = {
       foo: 'foo',
       bar: 123,
       undefined: undefined,
+      arr: [
+        1,
+        2,
+        {
+          deep: {
+            deep: true
+          }
+        }
+      ],
       deep: {
         foo: 'foo',
         bar: 123,

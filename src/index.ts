@@ -3,6 +3,10 @@
 
 import {DIVIDER} from './consts';
 
+/* HELPERS */
+
+const {isArray} = Array;
+
 /* METHODS */
 
 function get ( object, path: string, fallback? ) {
@@ -94,7 +98,32 @@ function del ( object, path: string ): void {
 
 }
 
-function flat ( object, prefix: string = '' ) {
+function flatArray ( arr ) {
+
+  const {length} = arr,
+        flattened = new Array ( length );
+
+  for ( let i = 0; i < length; i++ ) {
+
+    const value = arr[i];
+
+    if ( typeof value !== 'object' || value === null ) {
+
+      flattened[i] = value;
+
+    } else {
+
+      flattened[i] = flat ( value );
+
+    }
+
+  }
+
+  return flattened;
+
+}
+
+function flatObject ( object, prefix: string = '' ) {
 
   const flattened = {};
 
@@ -108,9 +137,13 @@ function flat ( object, prefix: string = '' ) {
 
       flattened[`${prefix}${key}`] = value;
 
+    } else if ( isArray ( value ) ) {
+
+      flattened[`${prefix}${key}`] = flatArray ( value );
+
     } else {
 
-      const flattenedDeep = flat ( value, `${prefix}${key}${DIVIDER}` );
+      const flattenedDeep = flatObject ( value, `${prefix}${key}${DIVIDER}` );
 
       for ( const key in flattenedDeep ) {
 
@@ -126,7 +159,40 @@ function flat ( object, prefix: string = '' ) {
 
 }
 
-function unflat ( object ) {
+function flat ( object, prefix: string = '' ) {
+
+  if ( isArray ( object ) ) return flatArray ( object );
+
+  return flatObject ( object, prefix );
+
+}
+
+function unflatArray ( arr ) {
+
+  const {length} = arr,
+        unflattened = new Array ( length );
+
+  for ( let i = 0; i < length; i++ ) {
+
+    const value = arr[i];
+
+    if ( typeof value !== 'object' || value === null ) {
+
+      unflattened[i] = value;
+
+    } else {
+
+      unflattened[i] = unflat ( value );
+
+    }
+
+  }
+
+  return unflattened;
+
+}
+
+function unflatObject ( object ) {
 
   const unflattened = {};
 
@@ -141,6 +207,14 @@ function unflat ( object ) {
   }
 
   return unflattened;
+
+}
+
+function unflat ( object ) {
+
+  if ( isArray ( object ) ) return unflatArray ( object );
+
+  return unflatObject ( object );
 
 }
 

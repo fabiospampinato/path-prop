@@ -8,7 +8,7 @@ const {default: pp} = require ( '../dist' ),
 /* BENCHMARK */
 
 benchmark.defaultOptions = Object.assign ( benchmark.defaultOptions, {
-  iterations: 200000,
+  iterations: 50000,
   log: 'compact'
 });
 
