@@ -1,7 +1,7 @@
 {
   "name": "path-prop",
   "description": "Fast library for manipulating plain objects using paths.",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
