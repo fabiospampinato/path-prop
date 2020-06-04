@@ -268,8 +268,8 @@ describe ( 'path-prop', () => {
 
     it ( 'works', t => {
 
-      const unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ), // Removing undefined values
-            flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ); // Removing undefined values
+      const flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ), // Removing undefined values
+            unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ); // Removing undefined values
 
       t.deepEqual ( pp.unflat ( Fixtures.flattened ), unflattened );
       t.deepEqual ( pp.flat ( pp.unflat ( Fixtures.flattened ) ), flattened );

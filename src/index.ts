@@ -1,6 +1,7 @@
 
 /* IMPORT */
 
+import isEmpty from 'plain-object-is-empty';
 import {DIVIDER} from './consts';
 
 /* HELPERS */
@@ -140,6 +141,10 @@ function flatObject ( object, prefix: string = '' ) {
     } else if ( isArray ( value ) ) {
 
       flattened[`${prefix}${key}`] = flatArray ( value );
+
+    } else if ( isEmpty ( value ) ) {
+
+      flattened[`${prefix}${key}`] = {};
 
     } else {
 

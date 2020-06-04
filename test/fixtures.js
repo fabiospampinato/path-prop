@@ -51,7 +51,9 @@ const Fixtures = {
       'deep.foo': 'foo',
       'deep.bar': 123,
       'deep.undefined': undefined,
-      'deep.deep.deep.foo': true
+      'deep.deep.foo': {},
+      'deep.deep.deep.foo': true,
+      'deep.deep.bar': {}
     };
   },
   get unflattened () {
@@ -73,6 +75,8 @@ const Fixtures = {
         bar: 123,
         undefined: undefined,
         deep: {
+          foo: {},
+          bar: {},
           deep: {
             foo: true
           }

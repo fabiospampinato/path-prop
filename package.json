@@ -47,7 +47,9 @@
     "flat",
     "unflat"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "plain-object-is-empty": "^1.0.0",
+  },
   "devDependencies": {
     "@types/node": "^12.7.11",
     "ava": "^2.4.0",
