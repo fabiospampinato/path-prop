@@ -2,6 +2,7 @@
 /* IMPORT */
 
 import isEmpty from 'plain-object-is-empty';
+import merge from 'plain-object-merge';
 import {DIVIDER} from './consts';
 
 /* HELPERS */
@@ -207,7 +208,25 @@ function unflatObject ( object ) {
 
     if ( value === undefined ) continue;
 
-    set ( unflattened, key, typeof value === 'object' && value !== null ? unflat ( value ) : value );
+    if ( typeof value !== 'object' || value === null ) {
+
+      set ( unflattened, key, value );
+
+    } else {
+
+      const valuePrev = get ( unflattened, key );
+
+      if ( typeof valuePrev !== 'object' || valuePrev === null ) {
+
+        set ( unflattened, key, unflat ( value ) );
+
+      } else {
+
+        set ( unflattened, key, merge ([ valuePrev, unflat ( value ) ]) );
+
+      }
+
+    }
 
   }
 

@@ -7,7 +7,7 @@ This library is similar to [dot-prop](https://github.com/sindresorhus/dot-prop),
 ## Features
 
 - **Performant**: it is up to 3x faster than [dot-prop](https://github.com/sindresorhus/dot-prop).
-- **Lightweight**: it has 0 dependencies and it's comprised of about 100 lines of code.
+- **Lightweight**: it has just a few tiny dependencies and it's comprised of about 100 lines of code.
 - **Flat objects**: a few additional methods are provided for flattening and unflattening objects.
 
 ## Restrictions

@@ -276,6 +276,12 @@ describe ( 'path-prop', () => {
 
     });
 
+    it ( 'merges objects', t => {
+
+      t.deepEqual ( pp.unflat ( Fixtures.flattenedMerged ), Fixtures.unflattenedMerged );
+
+    });
+
   });
 
 });

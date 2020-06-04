@@ -49,6 +49,7 @@
   ],
   "dependencies": {
     "plain-object-is-empty": "^1.0.0",
+    "plain-object-merge": "^1.0.1"
   },
   "devDependencies": {
     "@types/node": "^12.7.11",

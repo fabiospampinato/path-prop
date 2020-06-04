@@ -56,6 +56,18 @@ const Fixtures = {
       'deep.deep.bar': {}
     };
   },
+  get flattenedMerged () {
+    return {
+      foo: {
+        bar: {
+          baz: true
+        }
+      },
+      'foo.bar': {
+        baz2: true
+      }
+    }
+  },
   get unflattened () {
     return {
       foo: 'foo',
@@ -80,6 +92,16 @@ const Fixtures = {
           deep: {
             foo: true
           }
+        }
+      }
+    };
+  },
+  get unflattenedMerged () {
+    return {
+      foo: {
+        bar: {
+          baz: true,
+          baz2: true
         }
       }
     };
