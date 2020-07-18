@@ -71,6 +71,16 @@ describe ( 'path-prop', () => {
 
     });
 
+    it ( 'is not succeptible to prototype pollution issues', t => {
+
+      const target = Fixtures.source.arr;
+
+      t.is ( pp.get ( target, 'constructor' ), target );
+      t.is ( pp.get ( target, 'prototype' ), target );
+      t.is ( pp.get ( target, '__proto__' ), target );
+
+    });
+
   });
 
   describe ( 'has', it => {
@@ -181,6 +191,20 @@ describe ( 'path-prop', () => {
 
     });
 
+    it ( 'is not succeptible to prototype pollution issues', t => {
+
+      const target = Fixtures.source.arr;
+
+      t.is ( pp.set ( target, 'constructor', true ), target );
+      t.is ( pp.set ( target, 'prototype', true ), target );
+      t.is ( pp.set ( target, '__proto__', true ), target );
+
+      t.is ( pp.get ( target, 'constructor' ), target );
+      t.is ( pp.get ( target, 'prototype' ), target );
+      t.is ( pp.get ( target, '__proto__' ), target );
+
+    });
+
   });
 
   describe ( 'delete', it => {
@@ -245,6 +269,20 @@ describe ( 'path-prop', () => {
       pp.delete ( source, [] );
 
       t.deepEqual ( source, clone );
+
+    });
+
+    it ( 'is not succeptible to prototype pollution issues', t => {
+
+      const target = Fixtures.source.arr;
+
+      pp.delete ( target, 'constructor' );
+      pp.delete ( target, 'prototype' );
+      pp.delete ( target, '__proto__' );
+
+      t.true ( pp.has ( target, 'constructor' ) );
+      t.true ( pp.has ( target, 'prototype' ) );
+      t.true ( pp.has ( target, '__proto__' ) );
 
     });
 

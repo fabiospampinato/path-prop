@@ -19,7 +19,11 @@ function get ( object, path: string, fallback? ) {
 
   for ( let i = 0, l = keys.length; i < l; i++ ) {
 
-    object = object[keys[i]];
+    const key = keys[i];
+
+    if ( key === 'constructor' || key === 'prototype' || key === '__proto__' ) break;
+
+    object = object[key];
 
     if ( object === undefined ) return fallback;
 
@@ -47,6 +51,8 @@ function set ( object, path: string, value ) {
   for ( let i = 0, l = keys.length; i < l; i++ ) {
 
     const key = keys[i];
+
+    if ( key === 'constructor' || key === 'prototype' || key === '__proto__' ) break;
 
     if ( i === l - 1 ) {
 
@@ -82,13 +88,17 @@ function del ( object, path: string ): void {
 
   for ( let i = 0, l = keys.length; i < l; i++ ) {
 
+    const key = keys[i];
+
+    if ( key === 'constructor' || key === 'prototype' || key === '__proto__' ) break;
+
     if ( i === l - 1 ) {
 
-      delete object[keys[i]];
+      delete object[key];
 
     } else {
 
-      const value = object[keys[i]];
+      const value = object[key];
 
       if ( typeof value !== 'object' || value === null ) return;
 
@@ -130,6 +140,8 @@ function flatObject ( object, prefix: string = '' ) {
   const flattened = {};
 
   for ( const key in object ) {
+
+    if ( key === 'constructor' || key === 'prototype' || key === '__proto__' ) break;
 
     const value = object[key];
 
@@ -203,6 +215,8 @@ function unflatObject ( object ) {
   const unflattened = {};
 
   for ( const key in object ) {
+
+    if ( key === 'constructor' || key === 'prototype' || key === '__proto__' ) break;
 
     const value = object[key];
 
