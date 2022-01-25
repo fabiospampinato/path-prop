@@ -1,5 +1,5 @@
 
-/* CONSTS */
+/* MAIN */
 
 const DIVIDER = '.';
 
