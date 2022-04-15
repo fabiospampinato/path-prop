@@ -6,7 +6,7 @@ import {isArray, isEmpty} from './utils';
 
 /* MAIN */
 
-const flatArray = ( arr ) => {
+const flatArray = ( arr: unknown[] ): unknown[] => {
 
   const {length} = arr;
   const flattened = new Array ( length );
@@ -31,7 +31,7 @@ const flatArray = ( arr ) => {
 
 };
 
-const flatObject = ( object, prefix: string = '' ) => {
+const flatObject = ( object: object, prefix: string = '' ): object => {
 
   const flattened = {};
 
@@ -73,7 +73,7 @@ const flatObject = ( object, prefix: string = '' ) => {
 
 };
 
-const flat = ( object, prefix: string = '' ) => {
+const flat = ( object: object, prefix: string = '' ): object => {
 
   if ( isArray ( object ) ) return flatArray ( object );
 

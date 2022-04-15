@@ -1,11 +1,11 @@
 
 /* IMPORT */
 
-import {describe} from 'ava-spec';
-import {default as pp} from '../dist';
-import Fixtures from './fixtures';
+import {describe} from 'fava';
+import pp from '../dist/index.js';
+import Fixtures from './fixtures.js';
 
-/* PATH PROP */
+/* MAIN */
 
 describe ( 'path-prop', () => {
 
@@ -259,8 +259,8 @@ describe ( 'path-prop', () => {
 
     it ( 'supports unexpected paths', t => {
 
-      const source = Fixtures.source,
-            clone = Fixtures.source;
+      const source = Fixtures.source;
+      const clone = Fixtures.source;
 
       pp.delete ( source, null );
       pp.delete ( source, false );
@@ -292,8 +292,8 @@ describe ( 'path-prop', () => {
 
     it ( 'works', t => {
 
-      const flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ), // Removing undefined values
-            unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ); // Removing undefined values
+      const flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ); // Removing undefined values
+      const unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ); // Removing undefined values
 
       t.deepEqual ( pp.flat ( Fixtures.unflattened ), flattened );
       t.deepEqual ( pp.unflat ( pp.flat ( Fixtures.unflattened ) ), unflattened );
@@ -306,8 +306,8 @@ describe ( 'path-prop', () => {
 
     it ( 'works', t => {
 
-      const flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ), // Removing undefined values
-            unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ); // Removing undefined values
+      const flattened = JSON.parse ( JSON.stringify ( Fixtures.flattened ) ); // Removing undefined values
+      const unflattened = JSON.parse ( JSON.stringify ( Fixtures.unflattened ) ); // Removing undefined values
 
       t.deepEqual ( pp.unflat ( Fixtures.flattened ), unflattened );
       t.deepEqual ( pp.flat ( pp.unflat ( Fixtures.flattened ) ), flattened );

@@ -5,12 +5,13 @@ import {DIVIDER} from './constants';
 
 /* MAIN */
 
-const set = ( object, path: string, value ) => {
+const set = <T extends object> ( object: T, path: string, value: unknown ): T => {
 
   if ( typeof path !== 'string' || typeof object !== 'object' || object === null ) return object;
 
   const keys = path.split ( DIVIDER );
-  const source = object;
+
+  let target: any = object;
 
   for ( let i = 0, l = keys.length; i < l; i++ ) {
 
@@ -20,19 +21,19 @@ const set = ( object, path: string, value ) => {
 
     if ( i === l - 1 ) {
 
-      object[key] = value;
+      target[key] = value;
 
     } else {
 
-      const value = object[key];
+      const value = target[key];
 
       if ( typeof value !== 'object' || value === null ) {
 
-        object = object[key] = {};
+        target = target[key] = {};
 
       } else {
 
-        object = value;
+        target = value;
 
       }
 
@@ -40,7 +41,7 @@ const set = ( object, path: string, value ) => {
 
   }
 
-  return source;
+  return object;
 
 };
 

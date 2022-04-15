@@ -5,7 +5,7 @@ import get from './get';
 
 /* MAIN */
 
-const has = ( object, path: string ): boolean => {
+const has = ( object: object, path: string ): boolean => {
 
   return get ( object, path ) !== undefined;
 

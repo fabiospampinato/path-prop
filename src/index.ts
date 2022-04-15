@@ -15,4 +15,4 @@ const PathProp = {get, has, set, delete: del, flat, unflat};
 /* EXPORT */
 
 export default PathProp;
-export {get, has, set, del as delete, del, flat, unflat};
+export {get, has, set, del, del as delete, flat, unflat};

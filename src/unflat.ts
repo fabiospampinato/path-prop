@@ -7,7 +7,7 @@ import {isArray, merge} from './utils';
 
 /* MAIN */
 
-const unflatArray = ( arr ) => {
+const unflatArray = ( arr: unknown[] ): unknown[] => {
 
   const {length} = arr;
   const unflattened = new Array ( length );
@@ -32,7 +32,7 @@ const unflatArray = ( arr ) => {
 
 };
 
-const unflatObject = ( object ) => {
+const unflatObject = ( object: object ): object => {
 
   const unflattened = {};
 
@@ -70,7 +70,7 @@ const unflatObject = ( object ) => {
 
 };
 
-const unflat = ( object ) => {
+const unflat = ( object: object ): object => {
 
   if ( isArray ( object ) ) return unflatArray ( object );
 

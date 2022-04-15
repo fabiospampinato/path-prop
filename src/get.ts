@@ -5,7 +5,7 @@ import {DIVIDER} from './constants';
 
 /* MAIN */
 
-const get = ( object, path: string, fallback? ) => {
+const get = ( object: object, path: string, fallback?: unknown ): unknown => {
 
   if ( typeof path !== 'string' || typeof object !== 'object' || object === null ) return fallback;
 

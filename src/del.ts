@@ -5,7 +5,7 @@ import {DIVIDER} from './constants';
 
 /* MAIN */
 
-const del = ( object, path: string ): void => {
+const del = ( object: object, path: string ): void => {
 
   if ( typeof path !== 'string' || typeof object !== 'object' || object === null ) return;
 
